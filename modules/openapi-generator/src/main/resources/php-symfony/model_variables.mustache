@@ -4,7 +4,6 @@
      *
     {{/description}}
      * @var {{{vendorExtensions.x-commentType}}}{{^required}}|null{{/required}}
-     * @SerializedName("{{baseName}}")
 {{#required}}
      * @Assert\NotNull()
 {{/required}}
@@ -26,23 +25,18 @@
      *   @Assert\Type("{{dataType}}")
     {{/items}}
      * })
-     {{#items}}
-     * @Type("array<{{dataType}}>")
-     {{/items}}
 {{/isContainer}}
 {{^isContainer}}
     {{#isDate}}
      * @Assert\Date()
-     * @Type("DateTime")
     {{/isDate}}
     {{#isDateTime}}
      * @Assert\DateTime()
-     * @Type("DateTime")
+     * @Normalize(normalizeMethod="format", normalizeMethodParameters={"Y-m-d\TH:i:s.v\Z"})
     {{/isDateTime}}
     {{^isDate}}
     {{^isDateTime}}
      * @Assert\Type("{{dataType}}")
-     * @Type("{{dataType}}")
     {{/isDateTime}}
     {{/isDate}}
 {{/isContainer}}
